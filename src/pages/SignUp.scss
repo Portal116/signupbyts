@@ -1,0 +1,31 @@
+$warm_gray: #808080;
+$back-color: #fbfbfb;
+
+.container_signup {
+    position: relative;
+    width: 1080px;
+    height: 1890px;
+    margin: 0 auto;
+    border: 1px rgba(gray, 0.5) solid;
+    .title {
+        width: 31.58%;
+        height: 1.63%;
+        margin: 0 auto;
+        margin-top: 3.44%;
+        font-size: 215%;
+        font-family: NotoSansKR-Light;
+    }
+    .close {
+        position: absolute;
+        right: 3.81%;
+        top: 2.06%;
+        height: 3.6%;
+        width: 6.11%;
+    }
+    .divider {
+        margin-top: 20px;
+    }
+    label {
+        display: block;
+    }
+}
