@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import './SignUp.scss';
 import X_Mark from '../styles/img/x_mark.png';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import _ from 'lodash';
 
 const SignUp: React.FC = () => {
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    getValues,
+    reset,
+  } = useForm<FormInput>({
+    criteriaMode: 'all',
+  });
+
   interface FormInput {
     id: string;
-    idFlag: boolean;
     nickName: string;
-    nickNameFlag: boolean;
     password: string;
     passwordCheck: string;
     mobile: number;
@@ -18,31 +26,18 @@ const SignUp: React.FC = () => {
     client?: string;
     clientNumber?: string;
   }
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-    getValues,
-    setValue,
-  } = useForm<FormInput>({
-    criteriaMode: 'all',
-  });
-  useEffect(() => {
-    setValue('idFlag', false);
-    setValue('nickNameFlag', false);
-  }, []);
+
+  const [idFlag, setIdFlag] = useState<boolean>(false);
+  const [nickNameFlag, setNickNameFlag] = useState<boolean>(false);
+  const [mobileFlag, setMobileFlag] = useState<boolean>(false);
+  const [emailFlag, setEmailFlag] = useState<boolean>(false);
   const onSubmit = (data: FormInput) => {
-    if (!getValues('idFlag')) {
-      return;
-    } else if (!getValues('nickNameFlag')) {
-      return;
-    } else {
+    if (idFlag && nickNameFlag && mobileFlag && emailFlag) {
       console.log(data);
+      reset();
       alert('완료');
     }
   };
-  // 1. 중복 확인 후 변경 시 중복 확인 그대로 되어있음
-  // 2. 중복 확인만 미완료 상태에서 제출 누르고 중복확인 누르면 자동으로 submit
   return (
     <form className="container_signup" onSubmit={handleSubmit(onSubmit)}>
       <div className="title">2/2 아이디 생성 및 인증</div>
@@ -58,10 +53,20 @@ const SignUp: React.FC = () => {
                 value: /^(?=.*?[a-z])(?=.*?[0-9]).{5,20}$/,
                 message: '아이디는 5~20자의 영문 소문자, 숫자만 사용 가능합니다.',
               },
+              onChange: () => {
+                setIdFlag(false);
+              },
             })}
             placeholder="아이디 입력"
           />
-          <button onClick={() => setValue('idFlag', true)}>중복확인</button>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              setIdFlag(true);
+            }}
+          >
+            중복확인
+          </button>
           <div>
             <ErrorMessage
               errors={errors}
@@ -72,7 +77,7 @@ const SignUp: React.FC = () => {
               }}
             />
           </div>
-          <div>{!getValues('idFlag') && getValues('id') && 'ID 중복확인은 필수입니다'}</div>
+          <div>{!idFlag && getValues('id') && 'ID 중복확인은 필수입니다'}</div>
         </div>
         <div>
           <label>닉네임</label>
@@ -83,10 +88,20 @@ const SignUp: React.FC = () => {
                 value: /^(?=.*?[a-z])(?=.*?[0-9]).{5,20}$/,
                 message: '닉네임은 5~20자의 영문 소문자, 숫자만 사용 가능합니다.',
               },
+              onChange: (e) => {
+                setNickNameFlag(false);
+              },
             })}
             placeholder="닉네임 입력"
           ></input>
-          <button onClick={() => setValue('nickNameFlag', true)}>중복확인</button>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              setNickNameFlag(true);
+            }}
+          >
+            중복확인
+          </button>
           <div>
             <ErrorMessage
               errors={errors}
@@ -98,16 +113,16 @@ const SignUp: React.FC = () => {
             />
           </div>
           <div>
-            <div>{!getValues('nickNameFlag') && getValues('nickName') && '닉네임 중복확인은 필수입니다'}</div>
+            <div>{!nickNameFlag && getValues('nickName') && '닉네임 중복확인은 필수입니다'}</div>
           </div>
         </div>
       </div>
       <div className="divider"></div>
       <div>
         <div>
-          {' '}
           <label>비밀번호</label>
           <input
+            type="password"
             {...register('password', {
               required: { value: true, message: '비밀번호는 입력 필수입니다.' },
               pattern: {
@@ -129,8 +144,8 @@ const SignUp: React.FC = () => {
           </div>
         </div>
         <div>
-          {' '}
           <input
+            type="password"
             {...register('passwordCheck', {
               required: { value: true, message: '비밀번호 확인은 입력 필수입니다.' },
               validate: (value) => value === getValues('password') || '비밀번호가 일치하지 않습니다',
@@ -152,19 +167,28 @@ const SignUp: React.FC = () => {
       <div className="divider"></div>
       <div>
         <div>
-          {' '}
           <label>핸드폰 인증</label>
           <input
             {...register('mobile', {
               required: { value: true, message: '전화번호는 입력 필수입니다.' },
               pattern: {
                 value: /^(01[016789]{1})-?[0-9]{3,4}-?[0-9]{4}$/,
-                message: '숫자만 입력해주세요',
+                message: '- 를 제외한 10~11자리로 입력해주세요',
+              },
+              onChange: (e) => {
+                setMobileFlag(false);
               },
             })}
             placeholder="핸드폰 번호 입력"
           ></input>
-          <button>인증하기</button>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              setMobileFlag(true);
+            }}
+          >
+            인증하기
+          </button>
           <div>
             <ErrorMessage
               errors={errors}
@@ -175,10 +199,12 @@ const SignUp: React.FC = () => {
               }}
             />
           </div>
+          <div>
+            <div>{!mobileFlag && getValues('mobile') && '핸드폰 인증을 해주세요'}</div>
+          </div>
         </div>
         <label>이메일 인증</label>
         <div>
-          {' '}
           <input
             {...register('email', {
               required: { value: true, message: '이메일은 입력 필수입니다.' },
@@ -186,10 +212,20 @@ const SignUp: React.FC = () => {
                 value: /^[0-9a-zA-Z]{1,}[@][0-9a-zA-Z]{1,}[.][a-zA-Z]{2,3}$/,
                 message: '전체 이메일 주소를 입력하세요',
               },
+              onChange: (e) => {
+                setEmailFlag(false);
+              },
             })}
             placeholder="이메일 입력"
           ></input>
-          <button>인증하기</button>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              setEmailFlag(true);
+            }}
+          >
+            인증하기
+          </button>
           <div>
             <ErrorMessage
               errors={errors}
@@ -200,13 +236,16 @@ const SignUp: React.FC = () => {
               }}
             />
           </div>
+          <div>
+            <div>{!emailFlag && getValues('email') && '이메일 인증을 해주세요'}</div>
+          </div>
         </div>
       </div>
       <div className="divider"></div>
       <div>
         <label>고객사 선택(선택사항)</label>
-        <input placeholder="고객사 선택"></input>
-        <input placeholder="고객번호 입력"></input>
+        <input {...register('client')} placeholder="고객사 선택"></input>
+        <input {...register('clientNumber')} placeholder="고객번호 입력"></input>
         <div>고객사는 선택사항이며 추후 정보등록을 통해 변경 가능합니다.</div>
       </div>
       <div className="divider"></div>
