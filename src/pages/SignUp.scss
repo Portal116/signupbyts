@@ -8,132 +8,147 @@ $button-red: #d71a1a;
 $button-black: #333333;
 $button-gray: #dadada;
 
-$multiplier: 3;
-$font-size-sp: 1px * $multiplier;
-$letter-spacing-size: 1px * $multiplier;
+@mixin styling($multiplier) {
+    $font-size-sp: 10px * $multiplier;
+    $letter-spacing-size: 1px * $multiplier;
 
-$full-width: 360px * $multiplier;
-$full-height: 630px * $multiplier;
-$border-radius-size: 3.3px /360 * 360 * $multiplier;
+    $full-width: 360px * $multiplier;
+    $full-height: 630px * $multiplier;
+    $border-radius-size: 3.3px * $multiplier;
 
-// 10px 밑으로는 안되나?
-.container_signup {
-    position: relative;
-    width: $full-width;
-    height: $full-height;
-    margin: 0 auto;
-    border: 1px rgba(gray, 0.5) solid;
-    .divider {
-        margin-top: $full-height * 6.7/630;
+    * {
+        font-size: $font-size-sp;
     }
-    .input_form {
-        overflow-y: auto;
-        height: $full-height * 573.3/630;
-        .title {
-            width: $full-width * 113.7/360;
-            height: auto;
-            margin: 0 auto;
-            margin-top: $full-height * 21.7/630;
-            margin-bottom: $full-height * 6.3/630;
-            font-size: $font-size-sp * 10;
-            font-family: NotoSansKR-Light;
-            color: $font-title;
-            letter-spacing: $letter-spacing-size * 0.5;
+    .container_signup {
+        position: relative;
+        width: $full-width;
+        height: $full-height;
+        margin: 0 auto;
+        border: 1px rgba(gray, 0.5) solid;
+        .divider {
+            margin-top: $full-height * 6.7/630;
         }
-        .close {
-            position: absolute;
-            right: $full-width * 13.7/360;
-            top: $full-height * 13/630;
-            width: $full-width * 22/360;
-            height: $full-height * 22.7/630;
-        }
-        .div_background {
-            height: auto;
-            margin: auto $full-width * 14/360 0 $full-width * 13.3/360;
-            padding: $full-height * 18.3/630 $full-width * 37/360 $full-height * 14.7/630 $full-width * 36.7/360;
-            text-align: left;
-            background-color: $back-color;
-            border-radius: $border-radius-size * 2;
-            label {
-                font-size: $font-size-sp * 8.3;
-                font-family: NotoSansKR-Medium;
-                color: $font-subtitle;
-                letter-spacing: $letter-spacing-size * 0.25;
+        .input_form {
+            overflow-y: auto;
+            height: $full-height * 573.3/630;
+            .title {
+                width: $full-width * 113.7/360;
+                height: auto;
+                margin: 0 auto;
+                margin-top: $full-height * 21.7/630;
+                margin-bottom: $full-height * 6.3/630;
+                font-size: 1rem;
+                font-family: NotoSansKR-Light;
+                color: $font-title;
+                letter-spacing: $letter-spacing-size * 0.5;
             }
-            .insert {
-                height: $full-height * 26.7/630;
-                margin-top: $full-height * 3.5/630;
-                input {
-                    width: $full-width * 200/360;
-                    height: 100%;
-                    padding-left: $full-width * 9.7/360;
-                    font-family: NotoSansKR-Regular;
-                    font-size: $font-size-sp * 10.7;
-                    box-sizing: border-box;
-                    vertical-align: middle;
-                    border: 1px $input-border solid;
-                    border-radius: $border-radius-size;
-                    letter-spacing: $letter-spacing-size * 0.32;
-                }
-                button {
-                    width: $full-width * 56.3/360;
-                    height: 100%;
-                    margin-left: $full-width * 2.7/360;
-                    font-family: S-CoreDream-6;
-                    font-size: $font-size-sp * 8.3;
-                    font-weight: bold;
-                    vertical-align: middle;
-                    border: none;
-                    border-radius: $border-radius-size;
+            .close {
+                position: absolute;
+                right: $full-width * 13.7/360;
+                top: $full-height * 13/630;
+                width: $full-width * 22/360;
+                height: $full-height * 22.7/630;
+            }
+            .div_background {
+                height: auto;
+                margin: auto $full-width * 14/360 0 $full-width * 13.3/360;
+                padding: $full-height * 18.3/630 $full-width * 37/360 $full-height * 14.7/630 $full-width * 36.7/360;
+                text-align: left;
+                background-color: $back-color;
+                border-radius: $border-radius-size * 2;
+                label {
+                    margin-top: $full-height * 11/630;
+                    font-size: 0.83rem;
+                    font-family: NotoSansKR-Medium;
+                    color: $font-subtitle;
                     letter-spacing: $letter-spacing-size * 0.25;
                 }
-                .button1 {
-                    background-color: $button-black;
-                    color: white;
+                .insert {
+                    height: $full-height * 26.7/630;
+                    margin-top: $full-height * 3.5/630;
+                    input {
+                        width: $full-width * 200/360;
+                        height: 100%;
+                        padding-left: $full-width * 9.7/360;
+                        font-family: NotoSansKR-Regular;
+                        font-size: 1.07rem;
+                        box-sizing: border-box;
+                        vertical-align: middle;
+                        border: 1px $input-border solid;
+                        border-radius: $border-radius-size;
+                        letter-spacing: $letter-spacing-size * 0.32;
+                    }
+                    button {
+                        width: $full-width * 56.3/360;
+                        height: 100%;
+                        margin-left: $full-width * 2.7/360;
+                        font-family: S-CoreDream-6;
+                        font-size: 0.83rem;
+                        font-weight: bold;
+                        vertical-align: middle;
+                        border: none;
+                        border-radius: $border-radius-size;
+                        letter-spacing: $letter-spacing-size * 0.25;
+                    }
+                    .button1 {
+                        background-color: $button-black;
+                        color: white;
+                    }
+                    .button2 {
+                        background-color: $button-red;
+                        color: white;
+                    }
+                    .button3 {
+                        background-color: $button-gray;
+                        color: white;
+                    }
                 }
-                .button2 {
-                    background-color: $button-red;
-                    color: white;
+                .errorMessage {
+                    width: $full-width * 228/360;
+                    margin-top: $full-height * 4/630;
+                    font-size: 0.73rem;
+                    font-family: NotoSansKR-Regular;
+                    letter-spacing: $letter-spacing-size * 0.15;
                 }
-                .button3 {
-                    background-color: $button-gray;
-                    color: white;
+                .errorMessage1 {
+                    color: $font-error-1;
                 }
-            }
-            .errorMessage {
-                width: $full-width * 228/360;
-                min-height: $full-height * 15/630;
-                max-height: $full-height * 30/630;
-                margin-top: $full-height * 7/630;
-                font-size: $font-size-sp * 7.3;
-                font-family: NotoSansKR-Regular;
-                letter-spacing: $letter-spacing-size * 0.15;
-            }
-            .errorMessage1 {
-                color: $font-error-1;
-            }
-            .errorMessage2 {
-                color: $font-error-2;
+                .errorMessage2 {
+                    color: $font-error-2;
+                }
+                .errorMessageSize1 {
+                    height: $full-height * 11.7/630;
+                }
+                .errorMessageSize2 {
+                    height: $full-height * 20.7/630;
+                }
             }
         }
+        label {
+            display: block;
+        }
+        .submitBtn {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: $full-width;
+            height: $full-height * 56.7/630;
+            background-color: $button-red;
+            border: none;
+            color: white;
+            font-size: 1.67rem;
+            letter-spacing: $letter-spacing-size * 0.83;
+        }
     }
-    label {
-        display: block;
-    }
-    .submitBtn {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: $full-width;
-        height: $full-height * 56.7/630;
-        background-color: $button-red;
-        border: none;
-        color: white;
-        font-size: $font-size-sp * 16.7;
-        letter-spacing: $letter-spacing-size * 0.83;
+
+    ::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera*/
     }
 }
 
-::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera*/
+@media screen and (max-width: 1080px) {
+    @include styling($multiplier: 100vw/360px);
+}
+@media screen and (min-width: 1081px) {
+    @include styling($multiplier: 3);
 }

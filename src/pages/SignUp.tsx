@@ -71,7 +71,7 @@ const SignUp: React.FC = () => {
                 중복확인
               </button>
             </div>
-            <div className="errorMessage errorMessage1">
+            <div className="errorMessage errorMessage1 errorMessageSize1">
               <ErrorMessage
                 errors={errors}
                 name="id"
@@ -109,7 +109,7 @@ const SignUp: React.FC = () => {
                 중복확인
               </button>
             </div>
-            <div className="errorMessage errorMessage1">
+            <div className="errorMessage errorMessage1 errorMessageSize1">
               <ErrorMessage
                 errors={errors}
                 name="nickName"
@@ -151,7 +151,7 @@ const SignUp: React.FC = () => {
                 placeholder="비밀번호 재입력"
               ></input>
             </div>
-            <div className="errorMessage errorMessage1">
+            <div className="errorMessage errorMessage1 errorMessageSize2">
               <ErrorMessage
                 errors={errors}
                 name="password"
@@ -189,6 +189,7 @@ const SignUp: React.FC = () => {
                     setMobileFlag(false);
                   },
                 })}
+                disabled={mobileFlag}
                 placeholder="핸드폰 번호 입력"
               ></input>
               {!mobileFlag && (
@@ -204,7 +205,7 @@ const SignUp: React.FC = () => {
               )}
               {mobileFlag && <button className="button3">인증완료 </button>}
             </div>
-            <div className="errorMessage errorMessage2">
+            <div className="errorMessage errorMessage2 errorMessageSize1">
               <ErrorMessage
                 errors={errors}
                 name="mobile"
@@ -245,7 +246,7 @@ const SignUp: React.FC = () => {
               )}
               {emailFlag && <button className="button3">인증완료 </button>}
             </div>
-            <div className="errorMessage errorMessage2">
+            <div className="errorMessage errorMessage2 errorMessageSize1">
               <ErrorMessage
                 errors={errors}
                 name="email"
@@ -267,7 +268,9 @@ const SignUp: React.FC = () => {
           <div className="insert">
             <input {...register('clientNumber')} placeholder="고객번호 입력"></input>
           </div>
-          <div className="errorMessage errorMessage2">고객사는 선택사항이며 추후 정보등록을 통해 변경 가능합니다.</div>
+          <div className="errorMessage errorMessage2 errorMessageSize1">
+            고객사는 선택사항이며 추후 정보등록을 통해 변경 가능합니다.
+          </div>
         </div>
       </div>
       <input className="submitBtn" type="submit" value="제출하기" />
